@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.brand-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .brand-grid {
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: 150px 160px 100px 200px;
+    grid-template-areas:
+      "logoLight logoLight logoLight logoDark logoDark logoDark"
+      "cube cube dark dark person person"
+      "swatch swatch dark dark person person"
+      "diagram diagram dark dark card card";
+    gap: 1rem;
+  }
+
+  .area-logoLight { grid-area: logoLight; }
+  .area-logoDark { grid-area: logoDark; }
+  .area-cube { grid-area: cube; }
+  .area-swatch { grid-area: swatch; }
+  .area-diagram { grid-area: diagram; }
+  .area-dark { grid-area: dark; }
+  .area-person { grid-area: person; }
+  .area-card { grid-area: card; }
+}
