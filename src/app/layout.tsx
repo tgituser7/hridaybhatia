@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Suifan — Brand",
-  description: "Suifan brand identity showcase",
+  title: "Hriday — Brand",
+  description: "Hriday brand identity showcase",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -18,7 +18,7 @@ export default function Wordmark({ tone = "dark", size = "lg" }: WordmarkProps) 
       <span className={`flex items-center justify-center rounded-md border-2 ${border} ${iconBox} ${iconPad}`}>
         <LogoMark className="h-full w-full" color={iconColor} />
       </span>
-      <span className={`font-bold tracking-tight ${textSize}`}>suifan</span>
+      <span className={`font-bold tracking-tight ${textSize}`}>hriday</span>
     </div>
   );
 }

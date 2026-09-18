@@ -52,3 +52,167 @@ body {
   .area-person { grid-area: person; }
   .area-card { grid-area: card; }
 }
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+
+@keyframes cell-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(0.55); opacity: 0.45; }
+}
+
+@keyframes sheen {
+  0% { transform: translateX(-120%) skewX(-20deg); }
+  60%, 100% { transform: translateX(260%) skewX(-20deg); }
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1) translateY(0); }
+  50% { transform: scale(1.04) translateY(-3px); }
+}
+
+.anim-float { animation: float-y 3.6s ease-in-out infinite; }
+.anim-float-delayed { animation: float-y 3.6s ease-in-out -1.8s infinite; }
+.anim-breathe { animation: breathe 5s ease-in-out infinite; transform-origin: 50% 100%; }
+
+.logo-cell {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: cell-pulse 2.4s ease-in-out infinite;
+}
+
+.sheen { position: relative; overflow: hidden; }
+.sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.09), transparent);
+  animation: sheen 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-float, .anim-float-delayed, .anim-breathe, .logo-cell, .sheen::after {
+    animation: none;
+  }
+}
+
+@property --angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes blur-in {
+  0%, 4% { opacity: 0; filter: blur(12px); transform: scale(1.5); }
+  22%, 76% { opacity: 1; filter: blur(0); transform: scale(1); }
+  92%, 100% { opacity: 0; filter: blur(12px); transform: scale(0.85); }
+}
+
+@keyframes col-wave {
+  0%, 100% { opacity: 0.15; }
+  30%, 60% { opacity: 1; }
+}
+
+@keyframes ring {
+  0% { transform: translate(-50%, -50%) scale(0.2); opacity: 0.35; }
+  100% { transform: translate(-50%, -50%) scale(2.6); opacity: 0; }
+}
+
+@keyframes beam {
+  to { --angle: 360deg; }
+}
+
+@keyframes fill-sweep {
+  0%, 8% { background-position: 100% 0; }
+  45%, 70% { background-position: 0% 0; }
+  100% { background-position: 100% 0; }
+}
+
+.blur-letter { display: inline-block; animation: blur-in 6s cubic-bezier(0.22, 1, 0.36, 1) infinite backwards; }
+.col-wave { animation: col-wave 6s ease-in-out infinite backwards; }
+.ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 200px;
+  height: 200px;
+  border-radius: 9999px;
+  border: 1.5px solid #000;
+  pointer-events: none;
+  animation: ring 4.5s ease-out infinite;
+}
+
+.beam { position: relative; }
+.beam::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(from var(--angle), transparent 0 70%, rgba(255, 255, 255, 0.9) 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: beam 4s linear infinite;
+  pointer-events: none;
+}
+
+.outline-fill {
+  color: transparent;
+  -webkit-text-stroke: 1.5px #fff;
+  background-image: linear-gradient(90deg, #fff 50%, transparent 50%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: fill-sweep 5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blur-letter, .col-wave, .ring, .beam::before, .outline-fill { animation: none; }
+  .blur-letter, .col-wave { opacity: 1; }
+  .outline-fill { color: #fff; background: none; }
+}
+
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
+.bg-marquee {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
+}
+.marquee-row { display: flex; width: max-content; }
+.marquee-row span {
+  padding-right: 0.5em;
+  font-size: clamp(120px, 24vh, 260px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.13);
+}
+.marquee-left { animation: marquee-left 60s linear infinite; }
+.marquee-right { animation: marquee-right 70s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-left, .marquee-right { animation: none; }
+}

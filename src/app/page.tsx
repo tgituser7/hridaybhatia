@@ -1,31 +1,53 @@
 import LogoMark from "@/components/LogoMark";
 import Wordmark from "@/components/Wordmark";
+import OutlineWordmark from "@/components/OutlineWordmark";
+import BlurWordmark from "@/components/BlurWordmark";
+
+const MARQUEE_ROWS = ["marquee-left", "marquee-right", "marquee-left"];
 
 export default function Home() {
   return (
-    <section className="flex min-h-screen w-full items-center justify-center bg-[#ececec] p-6 md:p-14">
-      <div className="brand-grid w-full max-w-4xl">
+    <section className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-[#ececec] p-6 md:p-14">
+      <div className="bg-marquee" aria-hidden="true">
+        {MARQUEE_ROWS.map((dir, i) => (
+          <div key={i} className={`marquee-row ${dir}`}>
+            {Array.from({ length: 12 }, (_, j) => (
+              <span key={j}>HRIDAY</span>
+            ))}
+          </div>
+        ))}
+      </div>
+      <div className="brand-grid relative z-10 w-full max-w-4xl">
         {/* Light logo card */}
-        <div className="area-logoLight flex h-40 items-center justify-center rounded-2xl bg-white md:h-full">
-          <Wordmark tone="dark" size="lg" />
+        <div className="area-logoLight relative flex h-40 items-center justify-center overflow-hidden rounded-2xl bg-white md:h-full">
+          <BlurWordmark />
         </div>
 
+
+
         {/* Dark logo card */}
-        <div className="area-logoDark flex h-40 items-center justify-center rounded-2xl bg-black md:h-full">
-          <Wordmark tone="light" size="lg" />
+        <div className="area-logoDark beam relative flex h-40 items-center justify-center overflow-hidden rounded-2xl bg-black md:h-full">
+          <OutlineWordmark />
         </div>
+
+
 
         {/* Cube / lockup photo */}
         <div className="area-cube relative h-40 w-full overflow-hidden rounded-2xl bg-gradient-to-br from-neutral-800 via-neutral-900 to-black md:h-full">
-          <div className="absolute left-8 top-7 flex h-16 w-16 -rotate-6 items-center justify-center rounded-xl bg-black shadow-2xl ring-1 ring-white/10">
+          <div className="anim-float absolute left-8 top-7 flex h-16 w-16 -rotate-6 items-center justify-center rounded-xl bg-black shadow-2xl ring-1 ring-white/10">
             <LogoMark className="h-7 w-7" color="#ffffff" />
           </div>
-          <div className="absolute left-20 top-16 flex h-16 w-16 rotate-6 items-center justify-center rounded-xl border-2 border-white/40">
+          <div className="anim-float-delayed absolute left-20 top-16 flex h-16 w-16 rotate-6 items-center justify-center rounded-xl border-2 border-white/40">
             <LogoMark className="h-7 w-7" color="rgba(255,255,255,0.4)" />
           </div>
         </div>
 
-        {/* Color swatches */}
+
+
+
+
+
+
         <div className="area-swatch flex h-20 gap-3 md:h-full">
           <div className="flex flex-1 items-center justify-center rounded-2xl border border-black/10 bg-[#F4F4F4] font-mono text-base font-semibold tracking-wide text-neutral-700">
             F4F4F4
@@ -44,12 +66,12 @@ export default function Home() {
             backgroundSize: "14px 14px",
           }}
         >
-          <LogoMark className="h-28 w-auto opacity-80" color="#3f3f3f" />
+          <LogoMark className="h-28 w-auto opacity-80" color="#3f3f3f" animated />
         </div>
 
         {/* Dark mission photo */}
         <div
-          className="area-dark relative flex h-64 flex-col justify-between overflow-hidden rounded-2xl bg-[#141414] p-5 md:h-full"
+          className="area-dark sheen relative flex h-64 flex-col justify-between overflow-hidden rounded-2xl bg-[#141414] p-5 md:h-full"
           style={{
             backgroundImage:
               "repeating-linear-gradient(115deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 7px)",
@@ -63,11 +85,11 @@ export default function Home() {
         </div>
 
         {/* Person photo */}
-        <div className="area-person relative h-72 overflow-hidden rounded-2xl bg-gradient-to-b from-neutral-600 via-neutral-900 to-black md:h-full">
+        <div className="area-person sheen relative h-72 overflow-hidden rounded-2xl bg-gradient-to-b from-neutral-600 via-neutral-900 to-black md:h-full">
           <svg
             viewBox="0 0 100 140"
             preserveAspectRatio="xMidYMax meet"
-            className="absolute inset-0 h-full w-full"
+            className="anim-breathe absolute inset-0 h-full w-full"
             aria-hidden="true"
           >
             <polygon points="22,140 30,72 70,72 78,140" fill="#050505" />
@@ -86,8 +108,8 @@ export default function Home() {
             <LogoMark className="h-5 w-5" color="#ffffff" />
           </span>
           <div className="flex flex-col leading-tight">
-            <span className="text-sm font-semibold text-black">Suifan</span>
-            <span className="text-xs text-neutral-500">@suifan</span>
+            <span className="text-sm font-semibold text-black">Hriday</span>
+            <span className="text-xs text-neutral-500">@hriday</span>
           </div>
         </div>
       </div>
